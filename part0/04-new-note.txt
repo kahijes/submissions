@@ -1,0 +1,28 @@
+title Note submit
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
+
+note over server:
+POST request, data sent out and handled,
+updates the notes, redirects with 302,
+adress given in response headers
+end note
+
+server->browser: HTTP 302
+
+
+browser->server: HTTP Get https://fullstack-exampleapp.herokuapp.com/notes
+server->browser: HTML-code
+browser->server: HTTP Get https://fullstack-exampleapp.herokuapp.com/main.css
+server->browser: main.css
+browser->server: HTTP Get https://fulsstack-exampleapp.herokuapp.com/main.js
+server->browser: main.js
+
+note over browser:
+browser reads js, js requests json
+data from the server
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server->browser: data.json
+
