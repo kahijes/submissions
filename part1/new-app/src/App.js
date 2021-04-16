@@ -36,7 +36,8 @@ const Total = (props) => {
     </>
   )
 }
-
+//xd
+//xd
 const App = () => {
   const course = {
   name: 'Half Stack application',
@@ -64,4 +65,3 @@ const App = () => {
   )
 }
 export default App
-
