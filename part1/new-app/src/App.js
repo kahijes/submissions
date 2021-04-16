@@ -8,7 +8,6 @@ const Header = (props) => {
   </>
   )
 }
-//xd
 const Part = (props) => {
   return (
     <>
@@ -36,8 +35,6 @@ const Total = (props) => {
     </>
   )
 }
-//xd
-//xd
 const App = () => {
   const course = {
   name: 'Half Stack application',
