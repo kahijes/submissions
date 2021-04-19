@@ -13,7 +13,6 @@ const Button = ({ handleClick, text }) => {
 
 const Showmaxvoted = ({ votes, anecdotes }) => {
   const indexOfMax = votes.indexOf(Math.max(...votes))
-  console.log(indexOfMax);
   return (
     <div>
       <h1>Anecdote with the most votes</h1>
