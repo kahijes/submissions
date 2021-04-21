@@ -1,11 +1,9 @@
 import ReactDOM from 'react-dom'
 import App from './App.js'
 
-const phonebook = [
 
-]
 
 ReactDOM.render(
-  <App phonebook={phonebook} />,
+  <App  />,
   document.getElementById('root')
 )

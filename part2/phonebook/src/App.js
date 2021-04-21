@@ -1,16 +1,24 @@
-import React, { useState }  from 'react'
+import React, { useState, useEffect }  from 'react'
 import Persons from './components/Persons'
 import PersonsForm from './components/PersonsForm'
 import Filter from './components/Filter'
 import { nanoid } from 'nanoid'
+import axios from 'axios'
 
-
-const App = (props) => {
-  const [phonebookEntries, setPhonebookEntries] = useState(props.phonebook)
+const App = () => {
+  const [phonebookEntries, setPhonebookEntries] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setFilter] = useState('')
 
+  useEffect(() => {
+    axios
+    .get('http://localhost:3001/persons')
+    .then(response => {
+      setPhonebookEntries(response.data)
+    })
+  }, [])
+  
   const filteredEntries = phonebookEntries.filter(entry => entry.name.toLowerCase().includes(newFilter.toLowerCase()))
 
   const addInformation = (event) => {
