@@ -3,44 +3,44 @@ import Persons from './components/Persons'
 import PersonsForm from './components/PersonsForm'
 import Filter from './components/Filter'
 import { nanoid } from 'nanoid'
-import axios from 'axios'
+import phonebookService from './communication/phonebook'
 
 const App = () => {
   const [phonebookEntries, setPhonebookEntries] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setFilter] = useState('')
+  const filteredEntries = phonebookEntries.filter(entry => entry.name.toLowerCase().includes(newFilter.toLowerCase()))
 
   useEffect(() => {
-    axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      setPhonebookEntries(response.data)
-    })
-  }, [])
-  
-  const filteredEntries = phonebookEntries.filter(entry => entry.name.toLowerCase().includes(newFilter.toLowerCase()))
+    phonebookService
+      .getAll()
+      .then(phonebookFromServer => {
+        setPhonebookEntries(phonebookFromServer)
+      })
+  },[])
 
   const addInformation = (event) => {
     event.preventDefault()
-    const checkName = function(entry) {
-      return entry.name === newName
-    }
 
-    const result = phonebookEntries.find(checkName)
-    if ( !(result=== undefined)) {
-      window.alert(newName + ' is already added to phonebook')
-      setNewName('')
-      return
-    }
+    const result = phonebookEntries.find(entry => entry.name === newName)
+      if(!(result===undefined))  {
+        changeNumber(result)
+        return
+      }
+
     const phonebookObject = {
       name: newName,
       number: newNumber,
       id: nanoid()
     }
-    setPhonebookEntries(phonebookEntries.concat(phonebookObject))
-    setNewNumber('')
-    setNewName('')
+    phonebookService
+      .create(phonebookObject)
+      .then(returnedEntry => {
+        setPhonebookEntries(phonebookEntries.concat(returnedEntry))
+        setNewNumber('')
+        setNewName('')
+      })
   }
 
   const handleNameChange = (event) => {
@@ -52,8 +52,25 @@ const App = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
+  const handleDelete = (id, name) => {
+    const result = window.confirm(`Delete ${name}?`)
+    if (result) {
+      phonebookService
+      .deleteEntry(id)
+      setPhonebookEntries(phonebookEntries.filter(entry => id !== entry.id))
+    }
+  }
 
-
+  const changeNumber = (result) => {
+    if (window.confirm(newName + ' is already added to phonebook, replace the old number with a new one?')) {
+      result.number = newNumber
+      phonebookService
+        .update(result.id, result)
+        .then(returnedEntry => {
+        setPhonebookEntries(phonebookEntries.map(entry => entry.id === returnedEntry.id ? returnedEntry : entry));
+        })
+    }
+  }
   return (
     <div>
       <h2>Phonebook</h2>
@@ -67,7 +84,7 @@ const App = () => {
       addInformation={addInformation}
       />
       <h2>Numbers</h2>
-      <Persons phonebook={filteredEntries} />
+      <Persons phonebook={filteredEntries} handleDelete={handleDelete}/>
     </div>
   )
 }
