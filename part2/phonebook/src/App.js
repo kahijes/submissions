@@ -4,14 +4,17 @@ import PersonsForm from './components/PersonsForm'
 import Filter from './components/Filter'
 import { nanoid } from 'nanoid'
 import phonebookService from './communication/phonebook'
+import Notification from './components/Notification'
 
 const App = () => {
   const [phonebookEntries, setPhonebookEntries] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setFilter] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorType, setErrorType] = useState(0)
   const filteredEntries = phonebookEntries.filter(entry => entry.name.toLowerCase().includes(newFilter.toLowerCase()))
-
+  
   useEffect(() => {
     phonebookService
       .getAll()
@@ -22,7 +25,6 @@ const App = () => {
 
   const addInformation = (event) => {
     event.preventDefault()
-
     const result = phonebookEntries.find(entry => entry.name === newName)
       if(!(result===undefined))  {
         changeNumber(result)
@@ -34,12 +36,15 @@ const App = () => {
       number: newNumber,
       id: nanoid()
     }
+
     phonebookService
       .create(phonebookObject)
       .then(returnedEntry => {
+        errorMessagePopup(`Added ${newName}`, false)
         setPhonebookEntries(phonebookEntries.concat(returnedEntry))
         setNewNumber('')
         setNewName('')
+
       })
   }
 
@@ -61,21 +66,32 @@ const App = () => {
     }
   }
 
+  const errorMessagePopup = (message, type) => {
+      setErrorMessage(message)
+      setErrorType(type)
+      setTimeout(() => {
+        setErrorMessage(null)
+        setErrorType(null)}, 2000)
+  }
+
   const changeNumber = (result) => {
     if (window.confirm(newName + ' is already added to phonebook, replace the old number with a new one?')) {
-      result.number = newNumber
+      result.number = newNumber;
       phonebookService
         .update(result.id, result)
         .then(returnedEntry => {
+        errorMessagePopup(`Changed ${newName}`, false)
         setPhonebookEntries(phonebookEntries.map(entry => entry.id === returnedEntry.id ? returnedEntry : entry));
         })
+        .catch(error => {errorMessagePopup(`Information of ${newName} has already been removed from the server`, true)})
     }
-  }
+  };
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <Notification message={errorMessage} type={errorType}/>
       <Filter value={newFilter} handleFilterChange={handleFilterChange} />      
-      <h2>add a new</h2>
+      <h1>add a new</h1>
       <PersonsForm 
       newName={newName} 
       newNumber={newNumber} 
@@ -83,7 +99,7 @@ const App = () => {
       handleNumberChange={handleNumberChange}
       addInformation={addInformation}
       />
-      <h2>Numbers</h2>
+      <h1>Numbers</h1>
       <Persons phonebook={filteredEntries} handleDelete={handleDelete}/>
     </div>
   )
