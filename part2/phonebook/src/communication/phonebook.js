@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'api/persons'
+const baseUrl = '/api/persons'
 
 
 const getAll = () =>{
@@ -18,7 +18,7 @@ const deleteEntry = (id) => {
 }
 
 const update = (id, updatedObject) => {
-    const request = axios.put(`${baseUrl}/${id}`, updatedObject);
+    const request = axios.put(`${baseUrl}/${id}`, updatedObject)
     return request.then(response => response.data)
 }
 

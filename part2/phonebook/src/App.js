@@ -83,7 +83,7 @@ const App = () => {
         errorMessagePopup(`Changed ${newName}`, false)
         setPhonebookEntries(phonebookEntries.map(entry => entry.id === returnedEntry.id ? returnedEntry : entry));
         })
-        .catch(error => {errorMessagePopup(`Information of ${newName} has already been removed from the server`, true)})
+        .catch(error => errorMessagePopup(`Information of ${newName} has already been removed from the server`, true))
     }
   };
   return (
