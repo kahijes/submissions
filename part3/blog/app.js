@@ -1,4 +1,4 @@
-const config = require('./utils/config').config
+const config = require('./utils/config')
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -8,15 +8,16 @@ const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 
-logger.info('connecting to MONGO')
+logger.info('connecting to Mongo')
 
-const mongoUrl = config.MONGO_URL
+const mongoUrl = config.MONGODB_URL
+console.log(mongoUrl);
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(() => {
     logger.info('connected to MongoDb')
   })
   .catch((error) => {
-    logger.error('error connecting to MongoDB: ', error.message)
+    logger.error('error connecting to MongoDb: ', error.message)
   })
 
 app.use(cors())

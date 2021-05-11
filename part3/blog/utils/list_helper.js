@@ -17,7 +17,7 @@ const totalLikes = (array) => {
 }
 
 const favoriteBlog = (array) => {
-  let maxBlog = array.reduce(((max, blog) => max.likes >= blog.likes ? max : blog), 0)
+  let maxBlog = array.reduce((max, blog) => max.likes >= blog.likes ? max : blog)
 
   return {
     'title': maxBlog.title,
