@@ -1,6 +1,54 @@
+POST http://localhost:3003/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "fortesting1",
+  "name": "heh mies",
+  "password": "testpassword",
+  "blogs": []
+}
+
+###
+POST http://localhost:3003/api/blogs HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZvcnRlc3QiLCJpZCI6IjYwOWViNWQ2NmU4NWU1NTExNWMxYmMwNCIsImlhdCI6MTYyMTAyOTgzMX0.5zUNzGvlt2PQ_HPIkd2I56eIC60fSisNwwzR84hx2sA
+
+{
+  "title": "test333133444434423",
+  "author": "test1232323",
+  "url": "ww3333333",
+  "likes": "100"
+}
+###
 POST http://localhost:3003/api/blogs HTTP/1.1
 Content-Type: application/json
 
 {
-"author": "pekka"
+  "title": "test144335523",
+  "author": "test5123",
+  "url": "ww335533333",
+  "likes": "100"
 }
+
+###
+GET http://localhost:3003/api/users HTTP/1.1
+
+###
+GET http://localhost:3003/api/blogs HTTP/1.1
+###
+POST http://localhost:3003/api/login HTTP/1.1
+Content-Type: application/json
+
+{ 
+  "username": "fortesting",
+  "password": "testpassword"
+}
+
+###
+DELETE http://localhost:3003/api/blogs/609ef4bd239cf185e1a45187 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZvcnRlc3QiLCJpZCI6IjYwOWViNWQ2NmU4NWU1NTExNWMxYmMwNCIsImlhdCI6MTYyMTAyOTgzMX0.5zUNzGvlt2PQ_HPIkd2I56eIC60fSisNwwzR84hx2sA
+
+
+###
+DELETE http://localhost:3003/api/blogs/609ebacaa38763561d5cf4f8 HTTP/1.1

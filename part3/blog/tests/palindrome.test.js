@@ -13,6 +13,6 @@ test('palindrome of a react', () => {
 })
 test('palindrome of relezveler', () => {
   const result = palindrome('releveler')
-  
+
   expect(result).toBe('releveler')
 })

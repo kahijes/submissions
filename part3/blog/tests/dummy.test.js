@@ -56,7 +56,7 @@ describe('total likes', () => {
       url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
       likes: 2,
       __v: 0
-    }  
+    }
   ]
 
   const emptyBlog = []
@@ -71,20 +71,20 @@ describe('total likes', () => {
   }]
 
   test('of empty list is zero', () => {
-    
+
     const result = listHelper.totalLikes(emptyBlog)
     expect(result).toBe(0)
 
   })
 
   test('when list has only one blog equals the likes of that', () => {
-    
+
     const result = listHelper.totalLikes(blogWithOne)
     expect(result).toBe(2)
   })
 
   test('of a bigger lilst is calculated right', () => {
-    
+
     const result = listHelper.totalLikes(blogs)
     expect(result).toBe(36)
   })
@@ -140,7 +140,7 @@ describe('total likes', () => {
       url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
       likes: 2,
       __v: 0
-    }  
+    }
   ]
 
   test('favorite blog with the most likes', () => {
@@ -151,6 +151,11 @@ describe('total likes', () => {
     }
     const result = listHelper.favoriteBlog(blogs)
     expect(result).toEqual(best)
+  })
+
+  test('author with the most likes', () => {
+    const topAuth = listHelper.mostLikes(listHelper.blogs)
+    expect(topAuth.author).toBe('Edsger W. Dijkstra')
   })
 
 })
