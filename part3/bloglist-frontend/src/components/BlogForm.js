@@ -25,18 +25,20 @@ const BlogForm = ({ handlePost }) => {
   return (
     <div>
       <form onSubmit={ newBlog }>
-        <div>
+        <div >
         title:
           <input
+            id='title'
             type="text"
             value={title}
             name='title'
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
-        <div>
+        <div >
         author
           <input
+            id='author'
             type="text"
             value={author}
             name='author'
@@ -46,6 +48,7 @@ const BlogForm = ({ handlePost }) => {
         <div>
         url:
           <input
+            id='url'
             type="text"
             value={url}
             name='url'

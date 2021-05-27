@@ -17,20 +17,21 @@ const Blog = ({ blog, handleLike, handleDelete, user }) => {
 
 
   const justTheTitle = () => (
-    <div style={blogStyle}>
-      <p>{blog.title}
+    <div style={blogStyle} className='justTheTitle'>
+      <p>{blog.title} {blog.author}
         <button onClick={ () => setShowInfo(!showInfo) }>show</button></p>
     </div>
   )
-
+  
   const blogWithInformation = () => (
-    <div style={blogStyle}>
+    <div style={blogStyle} className='blogWithInformation'>
       <p>{blog.title} <button onClick={() => setShowInfo(!showInfo) }>hide</button></p>
+      <p>{blog.author}</p>
       <p>{blog.url}</p>
-      <p>likes {blog.likes} <button onClick={ () => {blog.likes++; handleLike(blog)} }>like</button></p>
+      <p>likes {blog.likes} <button onClick={ () => {blog.likes++;handleLike(blog)} }>like</button></p>
       <p>{blog.user.name}</p>
       <div style={showRemove}>
-        <button onClick={ () => handleDelete(blog) }>remove</button>
+        <button onClick={ () => {handleDelete(blog)} }>remove</button>
       </div>
     </div>
   )
