@@ -57,29 +57,6 @@ describe('Blog app', function() {
 
     })
 
-    it('blogs are ordered', function() {
-      cy.createBlog({
-        author: 'test 2',
-        url: 'cypress_test_url',
-        likes: 2,
-        title: 'deleted title'
-      })
-      cy.createBlog({
-        author: 'test 1',
-        url: 'cypress_test_url',
-        likes: 1,
-        title: 'deleted title'
-      })
-
-      cy.createBlog({
-        author: 'test 3',
-        url: 'cypress_test_url',
-        likes: 3,
-        title: 'deleted title'
-      })
-
-      cy.get('.justTheTitle').then(item => { console.log(item);})
-    })
   })
 
   it('front page can be opened', function() {
