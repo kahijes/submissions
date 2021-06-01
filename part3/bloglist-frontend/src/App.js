@@ -113,7 +113,7 @@ const App = () => {
       {user === null
         ? loginForm()
         : <div>
-          <p>{user.name} logged-in
+          <p>{user.name} logged in
             <button onClick={ () => {
               window.localStorage.clear()
               setUser(null)
