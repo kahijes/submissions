@@ -34,12 +34,16 @@ export const addNotification = (message) => {
       toShow: true}
   }
 }
-// const removeNotification = () => {
-//   return {
-//     type: 'REMOVE'
-//   }
-// }
 
+export const setNotification = (text, time) => {
+  return async dispatch => {
+    dispatch(addNotification(text))
+    
+    setTimeout(() => {
+      dispatch(setVisibility(false))
+    }, time*1000)
+  }
+}
 
 
 export default notificationReducer

@@ -1,0 +1,54 @@
+{
+  "anecdotes": [
+    {
+      "content": "If it hurts, do it more often",
+      "id": "1000",
+      "votes": 12
+    },
+    {
+      "content": "eeeee",
+      "id": "94642",
+      "votes": 33
+    },
+    {
+      "content": "wwwww",
+      "id": "76692",
+      "votes": 22
+    },
+    {
+      "content": "333333",
+      "id": "95505",
+      "votes": 7
+    },
+    {
+      "content": "333333",
+      "id": "13338",
+      "votes": 0
+    },
+    {
+      "content": "44444",
+      "id": "98753",
+      "votes": 2
+    },
+    {
+      "content": "33333",
+      "id": "73596",
+      "votes": 2
+    },
+    {
+      "content": "3333",
+      "id": "2049",
+      "votes": 0
+    },
+    {
+      "content": "333",
+      "id": "32903",
+      "votes": 9
+    },
+    {
+      "content": "44444",
+      "id": "71224",
+      "votes": 0
+    }
+  ]
+}
