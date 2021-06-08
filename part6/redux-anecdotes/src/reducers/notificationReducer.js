@@ -1,4 +1,5 @@
 const initialFilter = { toShow: false, text: ''}
+let timeoutID
 
 const notificationReducer = (state = initialFilter , action) => {
   switch(action.type) {
@@ -35,11 +36,13 @@ export const addNotification = (message) => {
   }
 }
 
+
 export const setNotification = (text, time) => {
+  clearTimeout(timeoutID)
   return async dispatch => {
     dispatch(addNotification(text))
-    
-    setTimeout(() => {
+    // clearTimeout(timeoutID)
+    timeoutID = setTimeout(() => {
       dispatch(setVisibility(false))
     }, time*1000)
   }

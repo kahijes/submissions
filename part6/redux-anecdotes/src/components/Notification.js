@@ -1,20 +1,21 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-// import notificationReducer from '../reducers/notificationReducer'
+import { connect } from 'react-redux'
 
-const Notification = () => {
+const Notification = (props) => {
 
-  const notification = useSelector(state => {
-      if (state.notification.toShow) {
-        return state.notification.text
+  const notificationText = () => {
+      if (props.notification.toShow) {
+        return props.notification.text
       }
       return null
-    })
+    }
+
   const style = {
     border: 'solid',
     padding: 10,
     borderWidth: 1
   }
+  const notification = notificationText()
 
   if (notification) {
     return(
@@ -23,11 +24,16 @@ const Notification = () => {
       </div>
     )
   }
-
     return (
       <div></div>
     )
   }
 
+  const mapStateToProps = (state) => {
+    return {
+      notification: state.notification
+    }
+  }
 
-export default Notification
+const ConnectedNotification = connect(mapStateToProps)(Notification)
+export default ConnectedNotification
