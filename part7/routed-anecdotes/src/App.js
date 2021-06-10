@@ -3,12 +3,12 @@ import {
   BroweserRouter as Router,
   Switch, Route, Link, useParams, useHistory
 } from 'react-router-dom'
+import {useField} from './hooks/index'
 
 const Menu = () => {
   const padding = {
     paddingRight: 5
   }
-
 
   return (
     <div>
@@ -67,19 +67,21 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
-  const history = useHistory()
-
+  // const [content, setContent] = useState('')
+  // const [author, setAuthor] = useState('')
+  // const [info, setInfo] = useState('')
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
+  const history = useHistory('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.setNotification(`a new anecdote ${content} created!`)
+    props.setNotification(`a new anecdote ${content.value} created!`)
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.data.value,
+      author: author.data.value,
+      info: info.data.value,
       votes: 0
     })
     history.push('/')
@@ -88,23 +90,33 @@ const CreateNew = (props) => {
     }, 10*1000)
   }
 
+  const resetInputs = () => {
+    content.reset()
+    author.reset()
+    info.reset()
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
+      <form id='form1' onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input {...content.data} id='content'/>
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...author.data} id='author'/>
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input {...info.data} id='url'/>
         </div>
-        <button>create</button>
+        <div>
+          <input type="reset" />
+        </div>
+        <button type='submit'>create</button>
+        <button type='button' onClick={ () => resetInputs() }>reset</button>
       </form>
     </div>
   )
