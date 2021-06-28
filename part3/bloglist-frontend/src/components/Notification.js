@@ -1,21 +1,27 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-const Notification = (props) => {
-  if (props.errorMessage === null) {
+const Notification = () => {
+
+
+  const notification = useSelector(state => state.notification)
+
+
+  if (notification.text === '' || notification.toShow === false) {
     return null
   }
 
-  else if (props.color === 'Red') {
+  else if (notification.color === 'Red') {
     return (
       <div className='error'>
-        {props.errorMessage}
+        {notification.text}
       </div>
     )
   }
 
   return (
     <div className='success'>
-      {props.errorMessage}
+      {notification.text}
     </div>
   )
 }

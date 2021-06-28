@@ -10,7 +10,6 @@ const AnecdotesList = (props) => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(state => state.anecdotes)
   const filter = useSelector(state => state.filter)
-  console.log(anecdotes, 'tääääääää');
   const filteredAnecdotes = anecdotes.filter(a => a.content.toLowerCase().includes(filter.toLowerCase()))
 
   filteredAnecdotes.sort(function (a, b) {

@@ -1,4 +1,3 @@
-  
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -21,9 +20,9 @@ const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
   let token = null
   
-  useEffect( async () => {
-    const response = await getAll()
-    setResources(response)
+  useEffect( () => {
+    ( async () => {const response = await getAll()
+    setResources(response)})()
   }, [])
 
   const setToken = newToken => {
@@ -78,7 +77,6 @@ const App = () => {
     event.preventDefault()
     noteService.create({ content: content.value })
   }
- 
   const handlePersonSubmit = (event) => {
     event.preventDefault()
     personService.create({ name: name.value, number: number.value})

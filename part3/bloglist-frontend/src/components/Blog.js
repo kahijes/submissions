@@ -1,10 +1,31 @@
 import React, { useState } from 'react'
+import { likeBlog, deleteBlog } from '../reducers/blogReducer'
+import { setNotification } from '../reducers/notificationReducer'
+import blogService from '../services/blogs'
+import { useDispatch } from 'react-redux'
 
-
-
-const Blog = ({ blog, handleLike, handleDelete, user }) => {
+const Blog = ({ blog, user }) => {
   const [showInfo, setShowInfo] = useState(false)
   const showRemove = { display: user.username === blog.user.username ? '' : 'none' }
+  const dispatch = useDispatch()
+
+  const handleDelete = async toBeRemoved => {
+    console.log(toBeRemoved)
+    if (window.confirm(`Remove blog ${toBeRemoved.title} by ${toBeRemoved.author}`)){
+      try {
+        await blogService.deleteBlog(toBeRemoved.id)
+        dispatch(deleteBlog(toBeRemoved))
+        return
+      } catch (error) {
+        dispatch(setNotification('Not authorized to delete', 'Red', 5))
+      }
+    }
+    return
+  }
+
+  const handleLike = (blog) => {
+    dispatch(likeBlog(blog))
+  }
 
   const blogStyle = {
     paddingTop: 10,

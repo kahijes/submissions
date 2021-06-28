@@ -41,7 +41,6 @@ export const setNotification = (text, time) => {
   clearTimeout(timeoutID)
   return async dispatch => {
     dispatch(addNotification(text))
-    // clearTimeout(timeoutID)
     timeoutID = setTimeout(() => {
       dispatch(setVisibility(false))
     }, time*1000)

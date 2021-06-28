@@ -20,7 +20,7 @@ describe('<Blog />', () => {
     component = render(
       <Blog blog={blog} user={{ username: 'test' }} handleLike={mockHandler}/>
     )
-  
+
   })
   test('renders author and title by default, not url nor likes', () => {
 
