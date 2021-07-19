@@ -1,8 +1,10 @@
 import React from 'react'
+import { useParams } from 'react-router'
+import { useSelector } from 'react-redux'
 
-
-
-const UserInformation = ({ user }) => {
+const UserInformation = () => {
+  const id = useParams().id
+  const user = useSelector(state => state.allUsers).find(u => u.id === id)
   if (!user) {
     return (
       null

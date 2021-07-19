@@ -7,17 +7,21 @@ const blogReducer = (state = [], action) => {
   }
   case 'DELETE': {
     const deleted = action.data.blog
-    return state.slice(0).filter(b => b.id !== deleted.id)
+    const stateCopy = state.map(a => ({ ...a }))
+    return stateCopy.filter(b => b.id !== deleted.id)
   }
   case 'LIKE': {
     const likedBlog = action.data.blog
-    if (likedBlog) {
-      const updatedBlogs = state.map(b => b.id === likedBlog.id ? likedBlog : b)
-      return updatedBlogs}
-    return state
+    return state.map(b => b.id === likedBlog.id ? likedBlog : b)
   }
   case 'INIT_BLOGS': {
     return action.data.blogs
+  }
+  case 'COMMENT': {
+    const updatedBlog = action.data.blog
+    return state.map(b => b.id === updatedBlog.id ? updatedBlog : b)
+
+
   }
 
   default:
@@ -34,6 +38,7 @@ export const likeBlog = (blog) => {
         blog: votedBlog
       }
     })
+
   }
 }
 
@@ -57,6 +62,7 @@ export const createBlog  = (blog) => {
         createdBlog
       }
     })
+
   }
 }
 
@@ -67,6 +73,20 @@ export const initializeBlogs = () => {
       type: 'INIT_BLOGS',
       data: {
         blogs: blogs
+      }
+    })
+  }
+}
+
+export const handleComment = (blogId, comment) => {
+  return async dispatch => {
+    console.log(blogId)
+    const commentedBlog = await blogService.commentBlog(comment, blogId)
+    console.log(commentedBlog, 'c blog')
+    dispatch({
+      type: 'COMMENT',
+      data: {
+        blog: commentedBlog
       }
     })
   }

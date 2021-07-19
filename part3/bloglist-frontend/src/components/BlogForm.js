@@ -15,7 +15,8 @@ const BlogForm = () => {
     const blog = {
       author: author,
       title: title,
-      url: url
+      url: url,
+      comments: []
     }
 
     handlePost(blog)

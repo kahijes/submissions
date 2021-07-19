@@ -5,16 +5,7 @@ import { useSelector } from 'react-redux'
 import  { Link } from 'react-router-dom'
 
 const UsersList = () => {
-  // const [users, setUsers] = useState({})
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const usersFromServer = await userService.getUsers()
-  //     console.log(usersFromServer)
-  //     console.log('tööööklkks')
-  //     setUsers(usersFromServer)
-  //   })()
-  // }, [])
   const users = useSelector(state => state.allUsers)
   if (users === null) {
     return null

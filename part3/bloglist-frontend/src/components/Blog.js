@@ -10,7 +10,6 @@ const Blog = ({ blog, user }) => {
   const dispatch = useDispatch()
 
   const handleDelete = async toBeRemoved => {
-    console.log(toBeRemoved)
     if (window.confirm(`Remove blog ${toBeRemoved.title} by ${toBeRemoved.author}`)){
       try {
         await blogService.deleteBlog(toBeRemoved.id)
